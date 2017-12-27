@@ -2,9 +2,9 @@ import React from 'react'
 
 const StartButton = () => {
   return(
-    <div className="button">
-      jnefwjnffjnwjfnl
-    </div>
+    <button className="button" style={{width: '100%', height: '50px', background: 'green', marginTop: '-4px', padding: '0', border: 'none', color: 'white'}}>
+      START
+    </button>
   )
 }
 
