@@ -16,7 +16,6 @@ class LandingVideo extends Component {
         <video onClick={(e) => {this.playVideo(e)}}
           muted
           loop
-          controls='true'
           style={{minHeight: '100vh', minWidth: '100vw'}}>
           <source src='/videos/Christmas.mp4' type='video/mp4' />
         </video>
