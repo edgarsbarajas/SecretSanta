@@ -38,16 +38,18 @@ class StartForm extends Component {
   renderInputs(){
     return this.state.nameInputs.map((name, index) => {
       return(
-        <div className='person-details' key={index} style={styles.personDetails}>
+        <div className='person-details' key={index} style={styles.personDetailsWrapper}>
           <input type='text'
             name='name'
             placeholder='Name'
             value={this.state.nameInputs[index]}
-            onChange={event => {this.handleNameChange(event, index)}}/>
+            onChange={event => {this.handleNameChange(event, index)}}
+            style={styles.personDetailsInput}/>
           <input name='phone-number'
             placeholder='Phone Number'
             value={this.state.phoneInputs[index]}
-            onChange={event => {this.handlePhoneChange(event, index)}}/>
+            onChange={event => {this.handlePhoneChange(event, index)}}
+            style={styles.personDetailsInput}/>
         </div>
       )
     })
@@ -96,9 +98,19 @@ const styles = {
     display: 'flex',
     flexDirection: 'column'
   },
-  personDetails: {
+  personDetailsWrapper: {
     display: 'flex',
-    justifyContent: 'center'
+    justifyContent: 'space-evenly',
+    margin: '15px 0'
+  },
+  personDetailsInput: {
+    backgroundColor: 'black',
+    width: '40%',
+    height: '30px',
+    borderRadius: '25px',
+    color: 'yellow',
+    fontSize: '15px',
+    textIndent: '10px'
   }
 }
 
