@@ -76,13 +76,23 @@ class StartForm extends Component {
 
   render(){
     return(
-      <div className='start-form'>
+      <div className='start-form' style={styles.form}>
         { this.renderForm() }
         <button onClick={() => {this.addPersonInput()}}>
           +
         </button>
       </div>
     )
+  }
+}
+
+const styles = {
+  form: {
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    position: 'absolute',
+    width: '100vw',
+    height: '100vh',
+    zIndex: '3'
   }
 }
 
