@@ -38,7 +38,7 @@ class StartForm extends Component {
   renderInputs(){
     return this.state.nameInputs.map((name, index) => {
       return(
-        <div className='person-details' key={index}>
+        <div className='person-details' key={index} style={styles.personDetails}>
           <input type='text'
             name='name'
             placeholder='Name'
@@ -55,8 +55,11 @@ class StartForm extends Component {
 
   renderForm(){
     return(
-      <form onSubmit={(event) => {this.handleSubmit(event)}}>
+      <form onSubmit={(event) => {this.handleSubmit(event)}} style={styles.formWrapper}>
         { this.renderInputs() }
+        <button onClick={() => {this.addPersonInput()}}>
+          +
+        </button>
         <input type='submit' value='Begin!' />
       </form>
     )
@@ -76,23 +79,26 @@ class StartForm extends Component {
 
   render(){
     return(
-      <div className='start-form' style={styles.form}>
+      <div className='start-form'>
         { this.renderForm() }
-        <button onClick={() => {this.addPersonInput()}}>
-          +
-        </button>
       </div>
     )
   }
 }
 
 const styles = {
-  form: {
+  formWrapper: {
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
     position: 'absolute',
     width: '100vw',
     height: '100vh',
-    zIndex: '3'
+    zIndex: '3',
+    display: 'flex',
+    flexDirection: 'column'
+  },
+  personDetails: {
+    display: 'flex',
+    justifyContent: 'center'
   }
 }
 
