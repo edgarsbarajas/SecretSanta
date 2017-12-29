@@ -16,11 +16,24 @@ class StartForm extends Component {
     console.log("submitted :)")
   }
 
+  handleChange(event, inputNumber){
+    let inputs = this.state.nameInputs
+    inputs[inputNumber] = event.target.value
+    console.log(event.target.value, inputNumber)
+    this.setState({
+      nameInputs: inputs
+    })
+  }
+
   renderInputs(){
     return this.state.nameInputs.map((name, index) => {
       return(
         <div className='person-details' key={index}>
-          <input type='text' name='name' placeholder='Name' value={this.state.nameInputs[index]}/>
+          <input type='text'
+            name='name'
+            placeholder='Name'
+            value={this.state.nameInputs[index]}
+            onChange={event => {this.handleChange(event, index)}}/>
         </div>
       )
     })
@@ -36,7 +49,6 @@ class StartForm extends Component {
   }
 
   addPersonInput(){
-    console.log(this.state.nameInputs)
     let inputs = this.state.nameInputs
     inputs.push("")
 
