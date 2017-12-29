@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import LandingVideo from './LandingVideo'
 import StartButton from './StartButton'
+import StartForm from './StartForm'
 
 class Home extends Component {
   render(){
@@ -8,6 +9,7 @@ class Home extends Component {
       <div className="home">
         <LandingVideo/>
         <StartButton/>
+        <StartForm/>
       </div>
     )
   }
