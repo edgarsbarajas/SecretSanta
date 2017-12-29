@@ -65,10 +65,15 @@ class StartForm extends Component {
         style={styles.formWrapper}
         className='people-form'>
         { this.renderInputs() }
-        <button onClick={() => {this.addPersonInput()}}>
+        <button onClick={() => {this.addPersonInput()}}
+          className='add-input-button animated rubberBand'
+          style={styles.plusButton}>
           +
         </button>
-        <input type='submit' value='Begin!' />
+        <input type='submit'
+          value='Begin!'
+          style={styles.submitButton}
+          className='animated bounceInUp'/>
       </form>
     )
   }
@@ -94,6 +99,8 @@ class StartForm extends Component {
   }
 }
 
+const secondaryColor = 'rgb(207,181,59)'
+
 const styles = {
   formWrapper: {
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
@@ -102,7 +109,8 @@ const styles = {
     height: '100vh',
     zIndex: '3',
     display: 'none',
-    flexDirection: 'column'
+    flexDirection: 'column',
+    alignItems: 'center'
   },
   personDetailsWrapper: {
     display: 'flex',
@@ -114,9 +122,23 @@ const styles = {
     width: '40%',
     height: '30px',
     borderRadius: '25px',
-    color: 'yellow',
+    borderColor: secondaryColor,
+    color: secondaryColor,
     fontSize: '15px',
     textIndent: '10px'
+  },
+  submitButton: {
+    backgroundColor: secondaryColor,
+    width: '70px',
+    height: '30px',
+    borderRadius: '25px'
+  },
+  plusButton: {
+    background: 'none',
+    marginBottom: '10px',
+    fontSize: '25px',
+    color: secondaryColor,
+    border: 'none'
   }
 }
 
