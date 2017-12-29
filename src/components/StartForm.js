@@ -7,7 +7,8 @@ class StartForm extends Component {
     super(props);
 
     this.state = {
-      nameInputs: ["", "", ""]
+      nameInputs: ["", "", ""],
+      phoneInputs: ["", "", ""]
     }
   }
 
@@ -16,12 +17,21 @@ class StartForm extends Component {
     console.log("submitted :)")
   }
 
-  handleChange(event, inputNumber){
+  handleNameChange(event, inputNumber){
     let inputs = this.state.nameInputs
     inputs[inputNumber] = event.target.value
     console.log(event.target.value, inputNumber)
     this.setState({
       nameInputs: inputs
+    })
+  }
+
+  handlePhoneChange(event, inputNumber){
+    let inputs = this.state.phoneInputs
+    inputs[inputNumber] = event.target.value
+    console.log(event.target.value, inputNumber)
+    this.setState({
+      phoneInputs: inputs
     })
   }
 
@@ -33,7 +43,11 @@ class StartForm extends Component {
             name='name'
             placeholder='Name'
             value={this.state.nameInputs[index]}
-            onChange={event => {this.handleChange(event, index)}}/>
+            onChange={event => {this.handleNameChange(event, index)}}/>
+          <input name='phone-number'
+            placeholder='Phone Number'
+            value={this.state.phoneInputs[index]}
+            onChange={event => {this.handlePhoneChange(event, index)}}/>
         </div>
       )
     })
@@ -49,11 +63,14 @@ class StartForm extends Component {
   }
 
   addPersonInput(){
-    let inputs = this.state.nameInputs
-    inputs.push("")
+    let nameInputs = this.state.nameInputs
+    let phoneInputs = this.state.phoneInputs
+    nameInputs.push("")
+    phoneInputs.push("")
 
     this.setState({
-      nameInputs: inputs
+      nameInputs: nameInputs,
+      phoneInputs: phoneInputs
     })
   }
 
