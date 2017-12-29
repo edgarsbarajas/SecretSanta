@@ -8,7 +8,11 @@ class LandingVideo extends Component {
   render(){
     return(
       <div className="landing-video" style={{overflow: 'hidden'}}>
-        <video autoPlay muted loop style={{minHeight: '100vh', minWidth: '100vw'}}>
+        <video autoPlay='autoplay'
+          muted
+          loop
+          controls='true'
+          style={{minHeight: '100vh', minWidth: '100vw'}}>
           <source src='/videos/Christmas.mp4' type='video/mp4' />
         </video>
         <Zoom delay={1000} duration={2000} className="content" style={{width: '100%', color: 'white', position: 'absolute', top: '30%', textAlign: 'center'}}>
