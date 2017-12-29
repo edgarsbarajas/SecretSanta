@@ -5,18 +5,19 @@ import { Fade, Flip, Rotate, Zoom } from 'react-reveal';
 // it is good for mobile
 
 class LandingVideo extends Component {
-  componentDidMount(){
-    document.getElementById('landing-video').play()
+  playVid(e){
+    e.target.play();
   }
 
   render(){
     return(
       <div className="landing-video" style={{overflow: 'hidden'}}>
         <video
+          onClick={(e) => {this.playVid(e)}}
           id='landing-video'
           muted
           loop
-          controls='true'
+          playsInline
           style={{minHeight: '100vh', minWidth: '100vw'}}>
           <source src='/videos/Christmas.mp4' type='video/mp4' />
         </video>
