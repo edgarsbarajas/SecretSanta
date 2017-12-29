@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import '../css/startform.css'
+import { Fade, Flip, Rotate, Zoom } from 'react-reveal';
 
 class StartForm extends Component {
 
@@ -38,16 +39,21 @@ class StartForm extends Component {
   renderInputs(){
     return this.state.nameInputs.map((name, index) => {
       return(
-        <div className='person-details' key={index}>
+        <div className='person-details' key={index} style={styles.personDetailsWrapper}>
           <input type='text'
+            className="animated bounceInDown"
             name='name'
             placeholder='Name'
             value={this.state.nameInputs[index]}
-            onChange={event => {this.handleNameChange(event, index)}}/>
-          <input name='phone-number'
+            onChange={event => {this.handleNameChange(event, index)}}
+            style={styles.personDetailsInput}/>
+          <input type='text'
+            className="animated bounceInDown"
+            name='phone-number'
             placeholder='Phone Number'
             value={this.state.phoneInputs[index]}
-            onChange={event => {this.handlePhoneChange(event, index)}}/>
+            onChange={event => {this.handlePhoneChange(event, index)}}
+            style={styles.personDetailsInput}/>
         </div>
       )
     })
@@ -55,9 +61,19 @@ class StartForm extends Component {
 
   renderForm(){
     return(
-      <form onSubmit={(event) => {this.handleSubmit(event)}}>
+      <form onSubmit={(event) => {this.handleSubmit(event)}}
+        style={styles.formWrapper}
+        className='people-form'>
         { this.renderInputs() }
-        <input type='submit' value='Begin!' />
+        <button onClick={() => {this.addPersonInput()}}
+          className='add-input-button animated rubberBand'
+          style={styles.plusButton}>
+          +
+        </button>
+        <input type='submit'
+          value='Begin!'
+          style={styles.submitButton}
+          className='animated bounceInUp'/>
       </form>
     )
   }
@@ -76,13 +92,53 @@ class StartForm extends Component {
 
   render(){
     return(
-      <div className='start-form'>
+      <div>
         { this.renderForm() }
-        <button onClick={() => {this.addPersonInput()}}>
-          +
-        </button>
       </div>
     )
+  }
+}
+
+const secondaryColor = 'rgb(207,181,59)'
+
+const styles = {
+  formWrapper: {
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    position: 'absolute',
+    width: '100vw',
+    height: '100vh',
+    zIndex: '3',
+    display: 'none',
+    flexDirection: 'column',
+    alignItems: 'center'
+  },
+  personDetailsWrapper: {
+    display: 'flex',
+    justifyContent: 'space-evenly',
+    margin: '15px 0'
+  },
+  personDetailsInput: {
+    backgroundColor: 'black',
+    width: '40%',
+    height: '30px',
+    borderRadius: '25px',
+    borderColor: secondaryColor,
+    color: secondaryColor,
+    fontSize: '15px',
+    textIndent: '10px'
+  },
+  submitButton: {
+    backgroundColor: secondaryColor,
+    width: '70px',
+    height: '30px',
+    borderRadius: '25px'
+  },
+  plusButton: {
+    background: 'none',
+    marginBottom: '10px',
+    fontSize: '25px',
+    color: secondaryColor,
+    border: 'none'
   }
 }
 

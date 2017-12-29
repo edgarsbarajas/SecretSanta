@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "animate.css": "^3.5.2",
+    "animated-scroll-to": "^1.1.7",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-reveal": "^0.7.3",
