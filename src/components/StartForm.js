@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import '../css/startform.css'
+import { Fade, Flip, Rotate, Zoom } from 'react-reveal';
 
 class StartForm extends Component {
 
@@ -40,12 +41,15 @@ class StartForm extends Component {
       return(
         <div className='person-details' key={index} style={styles.personDetailsWrapper}>
           <input type='text'
+            className="animated bounceInDown"
             name='name'
             placeholder='Name'
             value={this.state.nameInputs[index]}
             onChange={event => {this.handleNameChange(event, index)}}
             style={styles.personDetailsInput}/>
-          <input name='phone-number'
+          <input type='text'
+            className="animated bounceInDown"
+            name='phone-number'
             placeholder='Phone Number'
             value={this.state.phoneInputs[index]}
             onChange={event => {this.handlePhoneChange(event, index)}}
@@ -57,7 +61,9 @@ class StartForm extends Component {
 
   renderForm(){
     return(
-      <form onSubmit={(event) => {this.handleSubmit(event)}} style={styles.formWrapper}>
+      <form onSubmit={(event) => {this.handleSubmit(event)}}
+        style={styles.formWrapper}
+        className='people-form'>
         { this.renderInputs() }
         <button onClick={() => {this.addPersonInput()}}>
           +
@@ -81,7 +87,7 @@ class StartForm extends Component {
 
   render(){
     return(
-      <div className='start-form'>
+      <div>
         { this.renderForm() }
       </div>
     )
@@ -95,7 +101,7 @@ const styles = {
     width: '100vw',
     height: '100vh',
     zIndex: '3',
-    display: 'flex',
+    display: 'none',
     flexDirection: 'column'
   },
   personDetailsWrapper: {
