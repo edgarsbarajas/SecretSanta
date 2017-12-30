@@ -39,8 +39,11 @@ class StartForm extends Component {
   renderInputs(){
     return this.state.nameInputs.map((name, index) => {
       return(
-        <div className='person-details' key={index} style={styles.personDetailsWrapper}>
+        <div className='person-details'
+          key={index}
+          style={styles.personDetailsWrapper}>
           <input type='text'
+            display= 'inline-block'
             className="animated bounceInDown"
             name='name'
             placeholder='Name'
@@ -48,6 +51,7 @@ class StartForm extends Component {
             onChange={event => {this.handleNameChange(event, index)}}
             style={styles.personDetailsInput}/>
           <input type='text'
+            display='inline-block'
             className="animated bounceInDown"
             name='phone-number'
             placeholder='Phone Number'
