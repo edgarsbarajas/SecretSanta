@@ -128,7 +128,7 @@ const styles = {
     color: secondaryColor,
     fontSize: '15px',
     textIndent: '10px',
-    animation: 'x 1s',
+    animation: 'x 4s',
     animationName: Radium.keyframes(bounceInDown, 'bounceInDown')
   },
   submitButton: {
