@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { bounceInDown } from 'react-animations'
-import Radium, {StyleRoot} from 'radium';
+import Radium, {StyleRoot} from 'radium'
 
 class StartForm extends Component {
 
@@ -39,7 +39,7 @@ class StartForm extends Component {
   renderInputs(){
     return this.state.nameInputs.map((name, index) => {
       return(
-        <StyleRoot className='person-details'
+        <div className='person-details'
           key={index}
           style={styles.personDetailsWrapper}>
           <input type='text'
@@ -56,7 +56,7 @@ class StartForm extends Component {
             value={this.state.phoneInputs[index]}
             onChange={event => {this.handlePhoneChange(event, index)}}
             style={styles.personDetailsInput}/>
-        </StyleRoot>
+        </div>
       )
     })
   }
@@ -94,9 +94,9 @@ class StartForm extends Component {
 
   render(){
     return(
-      <div>
+      <StyleRoot>
         { this.renderForm() }
-      </div>
+      </StyleRoot>
     )
   }
 }
