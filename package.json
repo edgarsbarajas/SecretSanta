@@ -5,7 +5,9 @@
   "dependencies": {
     "animate.css": "^3.5.2",
     "animated-scroll-to": "^1.1.7",
+    "radium": "^0.19.6",
     "react": "^16.2.0",
+    "react-animations": "^1.0.0",
     "react-dom": "^16.2.0",
     "react-reveal": "^0.7.3",
     "react-scripts": "1.0.17"

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import '../css/startform.css'
-import { Fade, Flip, Rotate, Zoom } from 'react-reveal';
+import { bounceInDown } from 'react-animations'
+import Radium, {StyleRoot} from 'radium';
 
 class StartForm extends Component {
 
@@ -39,12 +39,11 @@ class StartForm extends Component {
   renderInputs(){
     return this.state.nameInputs.map((name, index) => {
       return(
-        <div className='person-details'
+        <StyleRoot className='person-details'
           key={index}
           style={styles.personDetailsWrapper}>
           <input type='text'
             display= 'inline-block'
-            className="animated bounceInDown"
             name='name'
             placeholder='Name'
             value={this.state.nameInputs[index]}
@@ -52,13 +51,12 @@ class StartForm extends Component {
             style={styles.personDetailsInput}/>
           <input type='text'
             display='inline-block'
-            className="animated bounceInDown"
             name='phone-number'
             placeholder='Phone Number'
             value={this.state.phoneInputs[index]}
             onChange={event => {this.handlePhoneChange(event, index)}}
             style={styles.personDetailsInput}/>
-        </div>
+        </StyleRoot>
       )
     })
   }
@@ -129,7 +127,9 @@ const styles = {
     borderColor: secondaryColor,
     color: secondaryColor,
     fontSize: '15px',
-    textIndent: '10px'
+    textIndent: '10px',
+    animation: 'x 1s',
+    animationName: Radium.keyframes(bounceInDown, 'bounceInDown')
   },
   submitButton: {
     backgroundColor: secondaryColor,
@@ -143,6 +143,10 @@ const styles = {
     fontSize: '25px',
     color: secondaryColor,
     border: 'none'
+  },
+  bounceInDown: {
+    animation: 'x 1s',
+    animationName: Radium.keyframes(bounceInDown, 'bounceInDown')
   }
 }
 
