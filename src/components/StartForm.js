@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { bounceInDown, bounceInUp } from 'react-animations'
+import { bounceInDown, bounceInUp, lightSpeedIn } from 'react-animations'
 import Radium, {StyleRoot} from 'radium'
 
 class StartForm extends Component {
@@ -148,7 +148,9 @@ const styles = {
   },
   logo: {
     width: '115px',
-    marginTop: '12px'
+    marginTop: '12px',
+    animation: 'x 1s',
+    animationName: Radium.keyframes(lightSpeedIn, 'lightSpeedIn')
   }
 }
 
