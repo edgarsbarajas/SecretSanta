@@ -16,6 +16,8 @@ const handleClick = () => {
   animateScrollTo(0);
 
   document.getElementsByClassName('people-form')[0].style.display = 'flex'
+  document.getElementById('logo').style.display = 'none'
+
 }
 
 export default StartButton;

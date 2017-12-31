@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { bounceInDown } from 'react-animations'
+import { bounceInDown, bounceInUp, lightSpeedIn } from 'react-animations'
 import Radium, {StyleRoot} from 'radium'
 
 class StartForm extends Component {
@@ -66,6 +66,7 @@ class StartForm extends Component {
       <form onSubmit={(event) => {this.handleSubmit(event)}}
         style={styles.formWrapper}
         className='people-form'>
+        <img src='/photos/logo.png' style={styles.logo}/>
         { this.renderInputs() }
         <button onClick={() => {this.addPersonInput()}}
           className='add-input-button animated rubberBand'
@@ -74,8 +75,7 @@ class StartForm extends Component {
         </button>
         <input type='submit'
           value='Begin!'
-          style={styles.submitButton}
-          className='animated bounceInUp'/>
+          style={styles.submitButton}/>
       </form>
     )
   }
@@ -105,7 +105,7 @@ const secondaryColor = 'rgb(207,181,59)'
 
 const styles = {
   formWrapper: {
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
     position: 'absolute',
     width: '100vw',
     height: '100vh',
@@ -128,14 +128,16 @@ const styles = {
     color: secondaryColor,
     fontSize: '15px',
     textIndent: '10px',
-    animation: 'x 4s',
+    animation: 'x 1.5s',
     animationName: Radium.keyframes(bounceInDown, 'bounceInDown')
   },
   submitButton: {
     backgroundColor: secondaryColor,
     width: '70px',
     height: '30px',
-    borderRadius: '25px'
+    borderRadius: '25px',
+    animation: 'x 1s',
+    animationName: Radium.keyframes(bounceInUp, 'bounceInUp')
   },
   plusButton: {
     background: 'none',
@@ -144,9 +146,11 @@ const styles = {
     color: secondaryColor,
     border: 'none'
   },
-  bounceInDown: {
+  logo: {
+    width: '115px',
+    marginTop: '12px',
     animation: 'x 1s',
-    animationName: Radium.keyframes(bounceInDown, 'bounceInDown')
+    animationName: Radium.keyframes(lightSpeedIn, 'lightSpeedIn')
   }
 }
 
