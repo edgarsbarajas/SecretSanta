@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
-import { Fade, Flip, Rotate, Zoom } from 'react-reveal';
+import { Zoom } from 'react-reveal';
+import { tada } from 'react-animations'
+import Radium, {StyleRoot} from 'radium'
 
 // Media query the width of the img in the zoom
 // it is good for mobile
@@ -11,7 +13,7 @@ class LandingVideo extends Component {
 
   render(){
     return(
-      <div className="landing-video" style={{overflow: 'hidden'}}>
+      <StyleRoot className="landing-video" style={{overflow: 'hidden'}}>
         <video
           id='landing-video'
           muted
@@ -20,11 +22,25 @@ class LandingVideo extends Component {
           style={{minHeight: '100vh', minWidth: '100vw'}}>
           <source src='/videos/Christmas.mp4' type='video/mp4' />
         </video>
-        <Zoom delay={1000} duration={2000} className="content" style={{width: '100%', color: 'white', position: 'absolute', top: '30%', textAlign: 'center'}}>
+        <div
+          style={styles.logo}
+          id='logo'>
           <img src='/photos/logo.png' style={{width: '50%'}}/>
-        </Zoom>
-      </div>
+        </div>
+      </StyleRoot>
     )
+  }
+}
+
+const styles = {
+  logo: {
+    width: '100%',
+    color: 'white',
+    position: 'absolute',
+    top: '30%',
+    textAlign: 'center',
+    animation: 'x 3s',
+    animationName: Radium.keyframes(tada, 'tada')
   }
 }
 
