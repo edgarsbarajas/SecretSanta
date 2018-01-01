@@ -23,10 +23,10 @@ class StartForm extends Component {
       phoneNumbers: this.state.phoneInputs
     })
       .then(function (response) {
-        alert(response);
+        console.log(response);
       })
       .catch(function (error) {
-        alert(error);
+        console.log(error);
       });
   }
 
