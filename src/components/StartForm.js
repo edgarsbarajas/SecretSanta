@@ -82,7 +82,7 @@ class StartForm extends Component {
         <img src='/photos/logo.png' style={styles.logo}/>
         { this.renderInputs() }
         <button
-          onClick={() => {this.addPersonInput()}}
+          onClick={(e) => {this.addPersonInput(e)}}
           className='add-input-button animated rubberBand'
           style={styles.plusButton}>
           +
@@ -95,7 +95,9 @@ class StartForm extends Component {
     )
   }
 
-  addPersonInput(){
+  addPersonInput(event){
+    event.preventDefault()
+
     let nameInputs = this.state.nameInputs
     let phoneInputs = this.state.phoneInputs
     nameInputs.push("")
