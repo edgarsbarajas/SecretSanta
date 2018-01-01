@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { bounceInDown, bounceInUp, lightSpeedIn } from 'react-animations'
 import Radium, {StyleRoot} from 'radium'
+import axios from 'axios'
 
 class StartForm extends Component {
 
@@ -15,7 +16,18 @@ class StartForm extends Component {
 
   handleSubmit(event){
     event.preventDefault()
-    console.log("submitted :)")
+
+    // send to backend
+    axios.post('http://localhost:3000/people', {
+      names: this.state.nameInputs,
+      phoneNumbers: this.state.phoneInputs
+    })
+      .then(function (response) {
+        alert(response);
+      })
+      .catch(function (error) {
+        alert(error);
+      });
   }
 
   handleNameChange(event, inputNumber){
@@ -63,17 +75,20 @@ class StartForm extends Component {
 
   renderForm(){
     return(
-      <form onSubmit={(event) => {this.handleSubmit(event)}}
+      <form
+        onSubmit={(event) => {this.handleSubmit(event)}}
         style={styles.formWrapper}
         className='people-form'>
         <img src='/photos/logo.png' style={styles.logo}/>
         { this.renderInputs() }
-        <button onClick={() => {this.addPersonInput()}}
+        <button
+          onClick={() => {this.addPersonInput()}}
           className='add-input-button animated rubberBand'
           style={styles.plusButton}>
           +
         </button>
-        <input type='submit'
+        <input
+          type='submit'
           value='Begin!'
           style={styles.submitButton}/>
       </form>
