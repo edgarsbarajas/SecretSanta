@@ -5,6 +5,7 @@
   "dependencies": {
     "animate.css": "^3.5.2",
     "animated-scroll-to": "^1.1.7",
+    "axios": "^0.17.1",
     "radium": "^0.19.6",
     "react": "^16.2.0",
     "react-animations": "^1.0.0",
