@@ -10,30 +10,82 @@ class StartForm extends Component {
 
     this.state = {
       nameInputs: ["", "", ""],
-      phoneInputs: ["", "", ""]
+      phoneInputs: ["", "", ""],
+      errorMessage: ""
+    }
+  }
+
+  makeInputsRed(inputs, indexes){
+    for(var i = 0; i < indexes.length; i++){
+      inputs[indexes[i]].style.borderColor = 'red'
+    }
+  }
+
+  getEmptyStringIndexes(array){
+    let emptyStringIndexes = []
+
+    for(var i = 0; i < array.length; i++){
+      if(array[i] === ""){
+        emptyStringIndexes.push(i);
+      }
+    }
+
+    return emptyStringIndexes
+  }
+
+  resetInputsToGold(inputs){
+    for(var i = 0; i < inputs.length; i++){
+      inputs[i].style.borderColor = secondaryColor;
     }
   }
 
   handleSubmit(event){
     event.preventDefault()
 
-    // send to backend
-    axios.post('http://localhost:3000/people', {
-      names: this.state.nameInputs,
-      phoneNumbers: this.state.phoneInputs
-    })
-      .then(function (response) {
-        console.log(response);
+    if(this.state.nameInputs.includes("") || this.state.phoneInputs.includes("")){
+      this.setState({
+        errorMessage: "The phone or name cannot be blank."
       })
-      .catch(function (error) {
-        console.log(error);
-      });
+
+      const nameFormInputs = document.getElementsByClassName('name-input')
+      const phoneFormInputs = document.getElementsByClassName('phone-input')
+
+      // make the input borders gold again
+      // they might be red if resubmitting form for the second time
+      this.resetInputsToGold(nameFormInputs)
+      this.resetInputsToGold(phoneFormInputs)
+
+      // check the name and phone inputs for empty strings
+      // get the index of the empty string and apply it to the input on the dom
+      // make the border red
+      const nameEmptyIndexes = this.getEmptyStringIndexes(this.state.nameInputs)
+      this.makeInputsRed(nameFormInputs, nameEmptyIndexes)
+
+      const phoneEmptyIndexes = this.getEmptyStringIndexes(this.state.phoneInputs)
+      this.makeInputsRed(phoneFormInputs, phoneEmptyIndexes)
+    } else {
+      // send to backend
+      axios.post('http://localhost:3000/people', {
+        names: this.state.nameInputs,
+        phoneNumbers: this.state.phoneInputs
+      })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
+
+
+
+
   }
 
   handleNameChange(event, inputNumber){
     let inputs = this.state.nameInputs
     inputs[inputNumber] = event.target.value
-    console.log(event.target.value, inputNumber)
+
     this.setState({
       nameInputs: inputs
     })
@@ -42,7 +94,7 @@ class StartForm extends Component {
   handlePhoneChange(event, inputNumber){
     let inputs = this.state.phoneInputs
     inputs[inputNumber] = event.target.value
-    console.log(event.target.value, inputNumber)
+
     this.setState({
       phoneInputs: inputs
     })
@@ -54,14 +106,18 @@ class StartForm extends Component {
         <div className='person-details'
           key={index}
           style={styles.personDetailsWrapper}>
-          <input type='text'
+          <input
+            className='name-input'
+            type='text'
             display= 'inline-block'
             name='name'
             placeholder='Name'
             value={this.state.nameInputs[index]}
             onChange={event => {this.handleNameChange(event, index)}}
             style={styles.personDetailsInput}/>
-          <input type='text'
+          <input
+            className='phone-input'
+            type='text'
             display='inline-block'
             name='phone-number'
             placeholder='Phone Number'
@@ -80,6 +136,7 @@ class StartForm extends Component {
         style={styles.formWrapper}
         className='people-form'>
         <img src='/photos/logo.png' style={styles.logo}/>
+        { this.renderErrors() }
         { this.renderInputs() }
         <button
           onClick={(e) => {this.addPersonInput(e)}}
@@ -107,6 +164,14 @@ class StartForm extends Component {
       nameInputs: nameInputs,
       phoneInputs: phoneInputs
     })
+  }
+
+  renderErrors(){
+    return(
+      <div className="errors" style={styles.errors}>
+        { this.state.errorMessage }
+      </div>
+    )
   }
 
   render(){
@@ -168,6 +233,10 @@ const styles = {
     marginTop: '12px',
     animation: 'x 1s',
     animationName: Radium.keyframes(lightSpeedIn, 'lightSpeedIn')
+  },
+  errors: {
+    color: 'red',
+    marginTop: '10px'
   }
 }
 
