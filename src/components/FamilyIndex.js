@@ -15,7 +15,7 @@ class FamilyIndex extends Component {
     axios.get(`http://localhost:3000/family/${this.state.familyId}`)
       .then((response) => {
           this.setState({
-            familyMembers: response
+            familyMembers: response.data
           })
       })
       .catch((error) => {
@@ -23,10 +23,26 @@ class FamilyIndex extends Component {
       })
   }
 
+  renderFamilyList(){
+    console.log('got here')
+    console.log(this.state.familyMembers.length)
+    return(
+      <div className='family'>
+        { this.state.familyMembers.map(person => {
+          return(
+            <div className='person' key={person.id}>
+              { person.name }
+            </div>
+          )
+        })}
+      </div>
+    )
+  }
+
   render(){
     return(
       <div>
-        
+        { this.renderFamilyList() }
       </div>
     )
   }
