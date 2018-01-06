@@ -24,9 +24,9 @@ class FamilyIndex extends Component {
       })
   }
 
-  renderFamilyList(){
+  render(){
     return(
-      <div className='family'>
+      <div className='family' style={styles.family}>
         { this.state.familyMembers.map(person => {
           return(
             <PersonDetails
@@ -39,13 +39,19 @@ class FamilyIndex extends Component {
       </div>
     )
   }
+}
 
-  render(){
-    return(
-      <div>
-        { this.renderFamilyList() }
-      </div>
-    )
+const styles = {
+  family: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: 'white',
+    background: 'url(/photos/background.png)',
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat',
+    height: '100vh'
   }
 }
 
