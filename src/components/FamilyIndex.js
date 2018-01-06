@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
+import PersonDetails from './PersonDetails'
 
 class FamilyIndex extends Component {
   constructor(props){
     super(props);
-
     this.state = {
       familyId: props.match.params.family_id,
       familyMembers: []
@@ -24,15 +25,15 @@ class FamilyIndex extends Component {
   }
 
   renderFamilyList(){
-    console.log('got here')
-    console.log(this.state.familyMembers.length)
     return(
       <div className='family'>
         { this.state.familyMembers.map(person => {
           return(
-            <div className='person' key={person.id}>
-              { person.name }
-            </div>
+            <PersonDetails
+              key={person.id}
+              person={person}
+              giftee={this.state.familyMembers.find(giftee => { return giftee.id === person.giftee_id})}
+            />
           )
         })}
       </div>
