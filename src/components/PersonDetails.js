@@ -8,6 +8,8 @@ class PersonDetails extends Component{
     console.log(props)
     this.state = {
       person: props.person,
+      giftee: props.giftee,
+      passwordInput: "",
       hiddenPasswordEntry: true
     }
     console.log(this.state)
@@ -21,7 +23,19 @@ class PersonDetails extends Component{
 
   handleSubmit(event){
     event.preventDefault()
-    console.log('hello')
+    if(this.state.passwordInput === this.state.person.password){
+      // if password is correct, append the giftee's name
+      event.target.closest('div').innerHTML += `<div className='giftee'>You got ${this.state.giftee.name}!</div>`
+
+    } else {
+      console.log("WRONG!")
+    }
+  }
+
+  handleChange(event){
+    this.setState({
+      passwordInput: event.target.value
+    })
   }
 
   render(){
@@ -29,7 +43,10 @@ class PersonDetails extends Component{
       <div onClick={() => {this.handleClick()}}>
         {this.state.person.name}
         <form onSubmit={(event) => {this.handleSubmit(event)}}>
-          <input type={this.state.hiddenPasswordEntry === true ? 'hidden' : 'text'} />
+          <input
+            value={this.state.passwordInput}
+            type={this.state.hiddenPasswordEntry === true ? 'hidden' : 'text'}
+            onChange={(event) => {this.handleChange(event)}} />
         </form>
       </div>
     )
