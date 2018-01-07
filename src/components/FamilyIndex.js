@@ -8,7 +8,8 @@ class FamilyIndex extends Component {
     super(props);
     this.state = {
       familyId: props.match.params.family_id,
-      familyMembers: []
+      familyMembers: [],
+      header: 'Who are you?'
     }
   }
 
@@ -24,13 +25,19 @@ class FamilyIndex extends Component {
       })
   }
 
+  clearHeader(){
+    this.setState({
+      header: ''
+    })
+  }
+
   render(){
     return(
       <div className='family-wrapper' style={styles.family}>
         <div className='logo-wrapper' style={styles.logoWrapper}>
           <img src='/photos/logo.png' style={styles.logo}/>
         </div>
-        <h1>Who are you?</h1>
+        <h1>{`${this.state.header}`}</h1>
         <div className='family'>
           { this.state.familyMembers.map(person => {
             return(
@@ -38,6 +45,7 @@ class FamilyIndex extends Component {
                 key={person.id}
                 person={person}
                 giftee={this.state.familyMembers.find(giftee => { return giftee.id === person.giftee_id})}
+                clearHeader={() => {this.clearHeader()}}
               />
             )
           })}

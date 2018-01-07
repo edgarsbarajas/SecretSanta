@@ -7,8 +7,6 @@ class PersonDetails extends Component{
     super(props);
     console.log(props)
     this.state = {
-      person: props.person,
-      giftee: props.giftee,
       passwordInput: "",
       hiddenPasswordEntry: true,
       revealedGiftee: false
@@ -33,14 +31,16 @@ class PersonDetails extends Component{
 
   handleSubmit(event){
     event.preventDefault()
-    if(this.state.passwordInput === this.state.person.password){
+    if(this.state.passwordInput === this.props.person.password){
       // if password is correct, append the giftee's name
       this.setState({
         hiddenPasswordEntry: true,
         revealedGiftee: true
       })
 
-      event.target.previousElementSibling.innerHTML += `,<br/>you got ${this.state.giftee.name}!`
+      this.props.clearHeader()
+      event.target.previousElementSibling.innerHTML += `,<br/>you got ${this.props.giftee.name}!`
+
 
       // get the other people on the list to clear them
       const DOMpeople = this.getSiblings(event.target.parentNode)
@@ -67,7 +67,7 @@ class PersonDetails extends Component{
           className='person-name'
           onClick={() => {this.handleClick()}}
           style={this.state.revealedGiftee === true ? styles.personName : {}}>
-          {this.state.person.name}
+          {this.props.person.name}
         </div>
         <form onSubmit={(event) => {this.handleSubmit(event)}}>
           <input
@@ -98,7 +98,6 @@ const styles = {
     textIndent: '10px',
   },
   personName: {
-    background: 'rgba(0, 0, 0, 0.5)',
     width: '100vw',
     padding: '10px 0',
     color: secondaryColor
