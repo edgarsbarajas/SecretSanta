@@ -11,7 +11,8 @@ class PersonDetails extends Component{
       person: props.person,
       giftee: props.giftee,
       passwordInput: "",
-      hiddenPasswordEntry: true
+      hiddenPasswordEntry: true,
+      revealedGiftee: false
     }
   }
 
@@ -27,7 +28,13 @@ class PersonDetails extends Component{
     event.preventDefault()
     if(this.state.passwordInput === this.state.person.password){
       // if password is correct, append the giftee's name
-      event.target.closest('div').innerHTML += `<div class='giftee'>You got ${this.state.giftee.name}!</div>`
+      this.setState({
+        hiddenPasswordEntry: true,
+        revealedGiftee: true
+      })
+      console.log(event.target.previousElementSibling)
+      event.target.previousElementSibling.innerHTML += `,<br/>you got ${this.state.giftee.name}!`
+
 
     } else {
       console.log("WRONG!")
@@ -43,7 +50,10 @@ class PersonDetails extends Component{
   render(){
     return(
       <div style={styles.person}>
-        <div className='person-name' onClick={() => {this.handleClick()}}>
+        <div
+          className='person-name'
+          onClick={() => {this.handleClick()}}
+          style={this.state.revealedGiftee === true ? styles.personName : {}}>
           {this.state.person.name}
         </div>
         <form onSubmit={(event) => {this.handleSubmit(event)}}>
@@ -64,8 +74,7 @@ const styles = {
   person: {
     textAlign: 'center',
     fontSize: '28px',
-    margin: '5px 0',
-    textShadow: '2px 2px black'
+    margin: '5px 0'
   },
   passwordInput: {
     width: '40%',
@@ -74,6 +83,12 @@ const styles = {
     borderColor: secondaryColor,
     fontSize: '15px',
     textIndent: '10px',
+  },
+  personName: {
+    background: 'rgba(0, 0, 0, 0.5)',
+    width: '100vw',
+    padding: '10px 0',
+    color: secondaryColor
   }
 }
 

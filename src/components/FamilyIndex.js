@@ -26,16 +26,22 @@ class FamilyIndex extends Component {
 
   render(){
     return(
-      <div className='family' style={styles.family}>
-        { this.state.familyMembers.map(person => {
-          return(
-            <PersonDetails
-              key={person.id}
-              person={person}
-              giftee={this.state.familyMembers.find(giftee => { return giftee.id === person.giftee_id})}
-            />
-          )
-        })}
+      <div className='family-wrapper' style={styles.family}>
+        <div className='logo-wrapper' style={styles.logoWrapper}>
+          <img src='/photos/logo.png' style={styles.logo}/>
+        </div>
+        <h1>Who are you?</h1>
+        <div className='family'>
+          { this.state.familyMembers.map(person => {
+            return(
+              <PersonDetails
+                key={person.id}
+                person={person}
+                giftee={this.state.familyMembers.find(giftee => { return giftee.id === person.giftee_id})}
+              />
+            )
+          })}
+        </div>
       </div>
     )
   }
@@ -46,12 +52,21 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'center',
     color: 'white',
+    textShadow: '2px 2px black',
     background: 'url(/photos/background.png)',
     backgroundSize: 'cover',
-    backgroundRepeat: 'no-repeat',
+    width: '100vw',
     height: '100vh'
+  },
+  logoWrapper: {
+    padding: '10px 0',
+    textAlign: 'center',
+    background: 'rgba(0,0,0,0.5)',
+    width: '100vw'
+  },
+  logo: {
+    width: '120px'
   }
 }
 
