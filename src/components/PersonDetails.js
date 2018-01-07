@@ -9,7 +9,8 @@ class PersonDetails extends Component{
     this.state = {
       passwordInput: "",
       hiddenPasswordEntry: true,
-      revealedGiftee: false
+      revealedGiftee: false,
+      secondaryColor: 'rgb(207,181,59)'
     }
   }
 
@@ -35,12 +36,12 @@ class PersonDetails extends Component{
       // if password is correct, append the giftee's name
       this.setState({
         hiddenPasswordEntry: true,
-        revealedGiftee: true
+        revealedGiftee: true,
+        secondaryColor: 'rgb(207,181,59)'
       })
 
       this.props.clearHeader()
       event.target.previousElementSibling.innerHTML += `,<br/>you got ${this.props.giftee.name}!`
-
 
       // get the other people on the list to clear them
       const DOMpeople = this.getSiblings(event.target.parentNode)
@@ -48,9 +49,8 @@ class PersonDetails extends Component{
       for(var i = 0; i < DOMpeople.length; i++){
         DOMpeople[i].style.display = 'none'
       }
-
     } else {
-      console.log("WRONG!")
+      this.setState({ secondaryColor: 'red' })
     }
   }
 
@@ -66,7 +66,7 @@ class PersonDetails extends Component{
         <div
           className='person-name'
           onClick={() => {this.handleClick()}}
-          style={this.state.revealedGiftee === true ? styles.personName : {}}>
+          style={this.state.revealedGiftee === true ? Object.assign({}, styles.personName, {color: this.state.secondaryColor}) : {}}>
           {this.props.person.name}
         </div>
         <form onSubmit={(event) => {this.handleSubmit(event)}}>
@@ -74,14 +74,14 @@ class PersonDetails extends Component{
             value={this.state.passwordInput}
             type={this.state.hiddenPasswordEntry === true ? 'hidden' : 'text'}
             onChange={(event) => {this.handleChange(event)}}
-            style={styles.passwordInput} />
+            style={Object.assign({}, styles.passwordInput, {borderColor: this.state.secondaryColor})} />
         </form>
       </div>
     )
   }
 }
 
-const secondaryColor = 'rgb(207,181,59)'
+console.log(PersonDetails)
 
 const styles = {
   person: {
@@ -93,14 +93,14 @@ const styles = {
     width: '80px',
     height: '30px',
     borderRadius: '25px',
-    borderColor: secondaryColor,
+    borderColor: 'black',
     fontSize: '15px',
     textIndent: '10px',
+    outline: 'none'
   },
   personName: {
     width: '100vw',
-    padding: '10px 0',
-    color: secondaryColor
+    padding: '10px 0'
   }
 }
 
