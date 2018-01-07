@@ -5,8 +5,7 @@ class PersonDetails extends Component{
 
   constructor(props){
     super(props);
-    console.log(secondaryColor);
-
+    console.log(props)
     this.state = {
       person: props.person,
       giftee: props.giftee,
@@ -18,11 +17,19 @@ class PersonDetails extends Component{
 
   handleClick(){
     this.setState({
-      hiddenPasswordEntry: this.state.hiddenPasswordEntry === true ? false : true
+      hiddenPasswordEntry: this.state.hiddenPasswordEntry === true && this.state.revealedGiftee === false ? false : true
     })
   }
 
-  // renderGiftee(){}
+  getSiblings(elem){
+    var siblings = [];
+    var sibling = elem.parentNode.firstChild;
+    var skipMe = elem;
+    for ( ; sibling; sibling = sibling.nextSibling )
+       if ( sibling.nodeType == 1 && sibling != elem )
+          siblings.push( sibling );
+    return siblings;
+}
 
   handleSubmit(event){
     event.preventDefault()
@@ -32,9 +39,15 @@ class PersonDetails extends Component{
         hiddenPasswordEntry: true,
         revealedGiftee: true
       })
-      console.log(event.target.previousElementSibling)
+
       event.target.previousElementSibling.innerHTML += `,<br/>you got ${this.state.giftee.name}!`
 
+      // get the other people on the list to clear them
+      const DOMpeople = this.getSiblings(event.target.parentNode)
+
+      for(var i = 0; i < DOMpeople.length; i++){
+        DOMpeople[i].style.display = 'none'
+      }
 
     } else {
       console.log("WRONG!")
@@ -49,7 +62,7 @@ class PersonDetails extends Component{
 
   render(){
     return(
-      <div style={styles.person}>
+      <div className='person' style={styles.person}>
         <div
           className='person-name'
           onClick={() => {this.handleClick()}}
@@ -77,7 +90,7 @@ const styles = {
     margin: '5px 0'
   },
   passwordInput: {
-    width: '40%',
+    width: '80px',
     height: '30px',
     borderRadius: '25px',
     borderColor: secondaryColor,
