@@ -10,7 +10,8 @@ class PersonDetails extends Component{
       passwordInput: "",
       hiddenPasswordEntry: true,
       revealedGiftee: false,
-      secondaryColor: 'rgb(207,181,59)'
+      secondaryColor: 'rgb(207,181,59)',
+      giftIdeas: ['', '', '']
     }
   }
 
@@ -28,7 +29,7 @@ class PersonDetails extends Component{
        if ( sibling.nodeType == 1 && sibling != elem )
           siblings.push( sibling );
     return siblings;
-}
+  }
 
   handleSubmit(event){
     event.preventDefault()
@@ -41,16 +42,16 @@ class PersonDetails extends Component{
       })
 
       this.props.clearHeader()
-      event.target.previousElementSibling.innerHTML += `,<br/>you got ${this.props.giftee.name}!`
+      event.target.previousElementSibling.innerHTML += `,</br>you got ${this.props.giftee.name}!`
 
       // get the other people on the list to clear them
       const DOMpeople = this.getSiblings(event.target.parentNode)
-
+      console.log('YOYOYOYO', DOMpeople)
       for(var i = 0; i < DOMpeople.length; i++){
         DOMpeople[i].style.display = 'none'
       }
     } else {
-      this.setState({ secondaryColor: 'red' })
+      this.setState({ secondaryColor: 'red'})
     }
   }
 
@@ -58,6 +59,49 @@ class PersonDetails extends Component{
     this.setState({
       passwordInput: event.target.value
     })
+  }
+
+  handleGiftChange(event, key){
+    let giftIdeas = this.state.giftIdeas
+    giftIdeas[key] = event.target.value
+
+    this.setState({
+      giftIdeas: giftIdeas
+    })
+  }
+
+  handleGiftIdeaSubmit(event){
+    event.preventDefault()
+    console.log('submitted breh');
+  }
+
+  revealGiftee(){
+    if(this.state.revealedGiftee === true){
+      if(!this.props.person.gift_ideas){
+        return(
+          <div>
+            <h3 style={styles.message}>
+              WAIT!<br/>
+              Before you go, list some gift items that you might want.
+            </h3>
+            <form style={styles.form} onSubmit={(e) => {this.handleGiftIdeaSubmit(e)}}>
+              { this.state.giftIdeas.map((gift, index) => {
+                return(
+                  <input
+                    key={index}
+                    value={gift}
+                    type='text'
+                    onChange={(e) => {this.handleGiftChange(e, index)}}
+                    style={Object.assign({}, styles.passwordInput, {borderColor: 'rgb(207,181,59)', width: '200px', margin: '3px 0'})}
+                    />
+                )
+              })}
+              <input type='submit' style={styles.submitButton}/>
+            </form>
+          </div>
+        )
+      }
+    }
   }
 
   render(){
@@ -69,6 +113,7 @@ class PersonDetails extends Component{
           style={this.state.revealedGiftee === true ? Object.assign({}, styles.personName, {color: this.state.secondaryColor}) : {}}>
           {this.props.person.name}
         </div>
+        { this.revealGiftee() }
         <form onSubmit={(event) => {this.handleSubmit(event)}}>
           <input
             value={this.state.passwordInput}
@@ -101,6 +146,21 @@ const styles = {
   personName: {
     width: '100vw',
     padding: '10px 0'
+  },
+  form: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center'
+  },
+  message: {
+    color: 'red',
+    marginBottom: '-3px'
+  },
+  submitButton: {
+    width: '70px',
+    height: '30px',
+    borderRadius: '25px',
+    backgroundColor: 'rgb(207,181,59)'
   }
 }
 
