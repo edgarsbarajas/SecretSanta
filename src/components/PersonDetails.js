@@ -73,6 +73,16 @@ class PersonDetails extends Component{
   handleGiftIdeaSubmit(event){
     event.preventDefault()
     console.log('submitted breh');
+
+    axios.put(`http://localhost:3000/people/${this.props.person.id}`, {
+      giftIdeas: this.state.giftIdeas
+    })
+      .then(response => {
+        console.log(response)
+      })
+      .catch(error => {
+        console.log(error);
+      })
   }
 
   revealGiftee(){
