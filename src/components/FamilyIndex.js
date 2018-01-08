@@ -16,6 +16,7 @@ class FamilyIndex extends Component {
   componentDidMount(){
     axios.get(`http://localhost:3000/family/${this.state.familyId}`)
       .then((response) => {
+        console.log(response);
           this.setState({
             familyMembers: response.data
           })

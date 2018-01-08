@@ -33,6 +33,7 @@ class PersonDetails extends Component{
 
   handleSubmit(event){
     event.preventDefault()
+
     if(this.state.passwordInput === this.props.person.password){
       // if password is correct, append the giftee's name
       this.setState({
@@ -87,7 +88,7 @@ class PersonDetails extends Component{
 
   revealGiftee(){
     if(this.state.revealedGiftee === true){
-      if(!this.props.person.gift_ideas){
+      if(this.props.person.gift_ideas.length < 1){
         return(
           <div>
             <h3 style={styles.message}>
