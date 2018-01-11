@@ -86,15 +86,15 @@ class PersonDetails extends Component{
       })
   }
 
-  revealGiftee(){
+  revealPersonGiftIdeasForm(){
     if(this.state.revealedGiftee === true){
       if(this.props.person.gift_ideas.length < 1){
         return(
           <div>
-            <h3 style={styles.message}>
+            <h4 style={styles.message}>
               WAIT!<br/>
               Before you go, list some gift items that you might want.
-            </h3>
+            </h4>
             <form style={styles.form} onSubmit={(e) => {this.handleGiftIdeaSubmit(e)}}>
               { this.state.giftIdeas.map((gift, index) => {
                 return(
@@ -115,6 +115,21 @@ class PersonDetails extends Component{
     }
   }
 
+  revealGifteeGiftIdeas(){
+    if(this.state.revealedGiftee === true){
+      return (
+        <div className='giftee gift-ideas'>
+          { this.props.giftee.name } has a few gift suggestions:
+          { this.props.giftee.gift_ideas.map((idea, index) => {
+            return(
+              <div>{`${index+1}. ${idea}`}</div>
+            )
+          })}
+        </div>
+      )
+    }
+  }
+
   render(){
     return(
       <div className='person' style={styles.person}>
@@ -124,7 +139,8 @@ class PersonDetails extends Component{
           style={this.state.revealedGiftee === true ? Object.assign({}, styles.personName, {color: this.state.secondaryColor}) : {}}>
           {this.props.person.name}
         </div>
-        { this.revealGiftee() }
+        { this.revealGifteeGiftIdeas() }
+        { this.revealPersonGiftIdeasForm() }
         <form onSubmit={(event) => {this.handleSubmit(event)}}>
           <input
             value={this.state.passwordInput}
