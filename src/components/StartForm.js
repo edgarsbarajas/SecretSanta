@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { bounceInDown, bounceInUp, lightSpeedIn } from 'react-animations'
 import Radium, {StyleRoot} from 'radium'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 
 class StartForm extends Component {
 
@@ -11,7 +12,8 @@ class StartForm extends Component {
     this.state = {
       nameInputs: ["", "", ""],
       phoneInputs: ["", "", ""],
-      errorMessage: ""
+      errorMessage: "",
+      done: false
     }
   }
 
@@ -39,8 +41,17 @@ class StartForm extends Component {
     }
   }
 
+  setInputsToGreen(inputs){
+    for(var i = 0; i < inputs.length; i++){
+      inputs[i].style.borderColor = 'green';
+    }
+  }
+
   handleSubmit(event){
     event.preventDefault()
+
+    const nameFormInputs = document.getElementsByClassName('name-input')
+    const phoneFormInputs = document.getElementsByClassName('phone-input')
 
     if(this.state.nameInputs.includes("") || this.state.phoneInputs.includes("")){
       this.setState({
@@ -71,15 +82,15 @@ class StartForm extends Component {
       })
         .then((response) => {
           console.log(response);
+          this.setState({ done: true, errorMessage: 'Great! Everyone has been text messaged a password to reveal their secret santa!' })
+
+          this.setInputsToGreen(nameFormInputs)
+          this.setInputsToGreen(phoneFormInputs)
         })
         .catch(function (error) {
           console.log(error);
         });
     }
-
-
-
-
   }
 
   handleNameChange(event, inputNumber){
@@ -167,11 +178,21 @@ class StartForm extends Component {
   }
 
   renderErrors(){
-    return(
-      <div className="errors" style={styles.errors}>
-        { this.state.errorMessage }
-      </div>
-    )
+    if(this.state.done){
+      return(
+        <div className="message" style={styles.doneMessage}>
+          { this.state.errorMessage }
+          <br/>
+          <Link to='/family/13' style={styles.a}>Click here to continue</Link>
+        </div>
+      )
+    } else{
+      return(
+        <div className="errors" style={styles.errors}>
+          { this.state.errorMessage }
+        </div>
+      )
+    }
   }
 
   render(){
@@ -236,7 +257,18 @@ const styles = {
   },
   errors: {
     color: 'red',
-    marginTop: '10px'
+    marginTop: '10px',
+    textAlign: 'center'
+  },
+  doneMessage: {
+    color: 'green',
+    marginTop: '10px',
+    textAlign: 'center'
+  },
+  a: {
+    fontWeight: 'bold',
+    textDecoration: 'none',
+    color: 'green'
   }
 }
 
