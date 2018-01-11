@@ -116,7 +116,7 @@ class PersonDetails extends Component{
   }
 
   revealGifteeGiftIdeas(){
-    if(this.state.revealedGiftee === true){
+    if(this.state.revealedGiftee === true && this.props.giftee.gift_ideas.length > 0){
       return (
         <div className='giftee gift-ideas'>
           { this.props.giftee.name } has a few gift suggestions:
@@ -187,7 +187,8 @@ const styles = {
     width: '70px',
     height: '30px',
     borderRadius: '25px',
-    backgroundColor: 'rgb(207,181,59)'
+    backgroundColor: 'rgb(207,181,59)',
+    marginTop: '5px'
   }
 }
 

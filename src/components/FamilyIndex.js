@@ -65,8 +65,10 @@ const styles = {
     textShadow: '2px 2px black',
     background: 'url(/photos/background.png)',
     backgroundSize: 'cover',
+    backgroundAttachment: 'fixed',
+    backgroundRepeat: 'no-repeat',
     width: '100vw',
-    height: '100vh'
+    minHeight: '100vh'
   },
   logoWrapper: {
     padding: '10px 0',
