@@ -11,7 +11,9 @@ class PersonDetails extends Component{
       hiddenPasswordEntry: true,
       revealedGiftee: false,
       secondaryColor: 'rgb(207,181,59)',
-      giftIdeas: ['', '', '']
+      giftIdeas: ['', '', ''],
+      submittedGiftForm: false,
+      showForm: true
     }
   }
 
@@ -79,6 +81,7 @@ class PersonDetails extends Component{
       giftIdeas: this.state.giftIdeas
     })
       .then(response => {
+        this.setState({ submittedGiftForm: true, showForm: false })
         console.log(response)
       })
       .catch(error => {
@@ -87,7 +90,7 @@ class PersonDetails extends Component{
   }
 
   revealPersonGiftIdeasForm(){
-    if(this.state.revealedGiftee === true){
+    if(this.state.revealedGiftee && this.state.showForm){
       if(this.props.person.gift_ideas.length < 1){
         return(
           <div>
@@ -136,6 +139,12 @@ class PersonDetails extends Component{
     }
   }
 
+  revealDoneWithGiftIdeasForm(){
+    if(this.state.submittedGiftForm){
+      return(<img src='/photos/done.png' alt='done' style={styles.done}/>)
+    }
+  }
+
   render(){
     return(
       <div className='person' style={styles.person}>
@@ -147,6 +156,7 @@ class PersonDetails extends Component{
         </div>
         { this.revealGifteeGiftIdeas() }
         { this.revealPersonGiftIdeasForm() }
+        { this.revealDoneWithGiftIdeasForm() }
         <form onSubmit={(event) => {this.handleSubmit(event)}}>
           <input
             placeholder='password'
@@ -159,8 +169,6 @@ class PersonDetails extends Component{
     )
   }
 }
-
-console.log(PersonDetails)
 
 const styles = {
   person: {
@@ -198,6 +206,10 @@ const styles = {
     borderRadius: '25px',
     backgroundColor: 'rgb(207,181,59)',
     marginTop: '5px'
+  },
+  done: {
+    width: '100px',
+    marginTop: '50px'
   }
 }
 
