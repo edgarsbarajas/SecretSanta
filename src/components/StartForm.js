@@ -13,7 +13,8 @@ class StartForm extends Component {
       nameInputs: ["", "", ""],
       phoneInputs: ["", "", ""],
       errorMessage: "",
-      done: false
+      done: false,
+      familyId: 0
     }
   }
 
@@ -82,7 +83,11 @@ class StartForm extends Component {
       })
         .then((response) => {
           console.log(response);
-          this.setState({ done: true, errorMessage: 'Great! Everyone has been text messaged a password to reveal their secret santa!' })
+          this.setState({
+            done: true,
+            errorMessage: 'Great! Everyone has been text messaged a password to reveal their secret santa!',
+            familyId: response.data.family_id
+           })
 
           this.setInputsToGreen(nameFormInputs)
           this.setInputsToGreen(phoneFormInputs)
@@ -183,7 +188,7 @@ class StartForm extends Component {
         <div className="message" style={styles.doneMessage}>
           { this.state.errorMessage }
           <br/>
-          <Link to='/family/13' style={styles.a}>Click here to continue</Link>
+          <Link to={`/family/${this.state.familyId}`} style={styles.a}>Click here to continue</Link>
         </div>
       )
     } else{

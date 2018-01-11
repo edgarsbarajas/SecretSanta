@@ -25,7 +25,7 @@ class LandingVideo extends Component {
         <div
           style={styles.logo}
           id='logo'>
-          <img src='/photos/logo.png' style={{width: '50%'}}/>
+          <img src='/photos/logo.png' style={{width: '200px'}}/>
         </div>
       </StyleRoot>
     )
@@ -35,7 +35,6 @@ class LandingVideo extends Component {
 const styles = {
   logo: {
     width: '100%',
-    color: 'white',
     position: 'absolute',
     top: '30%',
     textAlign: 'center',

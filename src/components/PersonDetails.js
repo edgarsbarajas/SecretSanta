@@ -116,17 +116,23 @@ class PersonDetails extends Component{
   }
 
   revealGifteeGiftIdeas(){
-    if(this.state.revealedGiftee === true && this.props.giftee.gift_ideas.length > 0){
-      return (
-        <div className='giftee gift-ideas'>
-          { this.props.giftee.name } has a few gift suggestions:
-          { this.props.giftee.gift_ideas.map((idea, index) => {
-            return(
-              <div>{`${index+1}. ${idea}`}</div>
-            )
-          })}
-        </div>
-      )
+    if(this.state.revealedGiftee === true){
+      if(this.props.giftee.gift_ideas.length > 0){
+        return (
+          <div className='giftee gift-ideas'>
+            { this.props.giftee.name } has a few gift suggestions:
+            { this.props.giftee.gift_ideas.map((idea, index) => {
+              return(
+                <div>{`${index+1}. ${idea}`}</div>
+              )
+            })}
+          </div>
+        )
+      } else {
+        return(
+          <div>{ this.props.giftee.name } has not suggested anything yet. Come back later to see if their list has been updated.</div>
+        )
+      }
     }
   }
 
@@ -143,6 +149,7 @@ class PersonDetails extends Component{
         { this.revealPersonGiftIdeasForm() }
         <form onSubmit={(event) => {this.handleSubmit(event)}}>
           <input
+            placeholder='password'
             value={this.state.passwordInput}
             type={this.state.hiddenPasswordEntry === true ? 'hidden' : 'text'}
             onChange={(event) => {this.handleChange(event)}}
@@ -167,8 +174,10 @@ const styles = {
     borderRadius: '25px',
     borderColor: 'black',
     fontSize: '15px',
-    textIndent: '10px',
-    outline: 'none'
+    textAlign: 'center',
+    outline: 'none',
+    backgroundColor: 'black',
+    color: 'rgb(207,181,59)'
   },
   personName: {
     width: '100vw',
