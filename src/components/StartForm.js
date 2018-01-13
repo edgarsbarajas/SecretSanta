@@ -77,7 +77,7 @@ class StartForm extends Component {
       this.makeInputsRed(phoneFormInputs, phoneEmptyIndexes)
     } else {
       // send to backend
-      axios.post('http://localhost:3000/people', {
+      axios.post('https://secret-santa-plus-backend.herokuapp.com/people', {
         names: this.state.nameInputs,
         phoneNumbers: this.state.phoneInputs
       })

@@ -77,7 +77,7 @@ class PersonDetails extends Component{
     event.preventDefault()
     console.log('submitted breh');
 
-    axios.put(`http://localhost:3000/people/${this.props.person.id}`, {
+    axios.put(`https://secret-santa-plus-backend.herokuapp.com/people/${this.props.person.id}`, {
       giftIdeas: this.state.giftIdeas
     })
       .then(response => {

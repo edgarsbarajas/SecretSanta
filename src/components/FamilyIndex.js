@@ -13,7 +13,7 @@ class FamilyIndex extends Component {
   }
 
   componentDidMount(){
-    axios.get(`http://localhost:3000/family/${this.state.familyId}`)
+    axios.get(`https://secret-santa-plus-backend.herokuapp.com/family/${this.state.familyId}`)
       .then((response) => {
         console.log(response);
           this.setState({
